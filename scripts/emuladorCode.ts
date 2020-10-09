@@ -20,9 +20,9 @@ function limpiarConsola()
  * Adiciona una texto a la consola de la GUI (Ver HTML)
  * @param texto Texto que se desea adicionar al final de la consola.
 */
-function addConsola ( texto )
+function addConsola ( texto: string )
 {
-  document.getElementById( "textoImprimir" ).innerHTML += texto;
+  document?.getElementById( "textoImprimir" )?.innerHTML += texto;
   var consola = document.getElementById( "consola" );
   consola.scrollTop = consola.scrollHeight;
 }
@@ -37,7 +37,7 @@ function procesarEntrada( e )
 	
 }
 
-function procesarComando ( comando )
+function procesarComando ( comando: any )
 {
 	var comandoParametros = comando.value.split(" ");
 
