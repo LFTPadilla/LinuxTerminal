@@ -145,7 +145,8 @@ function procesarComando(comando) {
         case "ls":
             commandLs(comandoParametros[1] ? comandoParametros[1] == '-l' : false);
             break;
-        case "":
+        case "cat":
+            cat(comandoParametros);
             break;
         case "":
             break;
@@ -257,6 +258,8 @@ function chmod(parameters) {
     else {
         addConsola('chmod: se esperaban más parametros');
     }
+}
+function cat(parameters) {
 }
 function searchUser(name) {
     var user;
