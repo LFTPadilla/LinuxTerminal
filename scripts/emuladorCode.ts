@@ -103,7 +103,6 @@ function procesarEntrada( e: any )
 	
 }
 
-
 function procesarComando ( comando: any )
 {
 	var comandoParametros = comando.value.split(" ");
@@ -143,11 +142,11 @@ function procesarComando ( comando: any )
 
 	switch (comandoParametros[0]) {
 		case "logout":
-			userLoging=null;
-			document.getElementById( "userLogued" )?.innerHTML = '';
+			userLoging=null
+			document.getElementById( "userLogued" )?.innerHTML = ''
 			break;
 		case "touch":
-			commandTouch(comandoParametros[1]?comandoParametros[1]:'' );
+			commandTouch(comandoParametros[1]?comandoParametros[1]:'' )
 			break;
 		case "sudo":
 			sudo(comandoParametros);
@@ -159,7 +158,7 @@ function procesarComando ( comando: any )
 			chmod(comandoParametros)
 			break;
 		case "ls":
-			commandLs(comandoParametros[1]?comandoParametros[1]=='-l':false);
+			commandLs(comandoParametros[1]?comandoParametros[1]=='-l':false)
 			break;
 		case "cat":
 			cat(comandoParametros[1])
@@ -173,9 +172,8 @@ function procesarComando ( comando: any )
 		case "":
 			break;
 		default:
-			addConsola('bash: comando desconocido');
+			addConsola('bash: comando desconocido')
 			break;
-
 	}	
 }
 
