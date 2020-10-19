@@ -41,7 +41,7 @@ let maquinas: Machine[] = [
 	{Name:'pipe'},
 	{Name:'sebas'}
 ] ,myFiles: [{Name:'Ubuntu.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'05/09/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'06/12/2020'},{Name:'amazon.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'07/02/2019'},{Name:'video.zip', Owner:'pipe', Group:'pipe',permissions:'664', Date:'08/06/2018'}]},
-	{Name: 'Fedora', Disk:'/mach3', IPNumber:'198.38.148.20', myUsers: [ 
+	{Name: 'Fedora', Disk:'/mach3', IPNumber:'192.168.0.100', myUsers: [ 
 	{Name:'Luis',Login:'luis',groups:[],Passwd:'123'},
 	{Name:'Alvaro',Login:'alv',groups:[],Passwd: null},
 	{Name:'Felipe',Login:'pipe',groups:[],Passwd:null},
@@ -169,7 +169,8 @@ function procesarComando ( comando: any )
 			break;
 		case "":
 			break;
-		case "":
+		case "ssh":
+			commandSsh( comandoParametros[1]?comandoParametros[1]:'' );
 			break;
 		case "":
 			break;
@@ -177,6 +178,37 @@ function procesarComando ( comando: any )
 			console.log("No such day exists!");
 			break;
 	}	
+}
+
+function commandSsh(destino: string){
+	let dest = destino.split('@');
+	if(destino=='' || dest.length==1){
+		addConsola('Por favor ingrese el usuario y la ip de la maquina destino: ssh usuario@ip');
+		return;
+	}
+	let existMachine = false;
+	let existUser = false;
+	maquinas.forEach((machine,iMach) => {
+		if (machine.IPNumber === dest[1]) {
+			existMachine = true;
+			machine.myUsers.forEach(user => {
+				if(user.Login == dest[0]){
+					existUser = true;
+					machineSelected = iMach;
+					userLoging = user
+					document.getElementById( "machine" ).innerHTML = maquinas[machineSelected].Name
+					document.getElementById( "userLogued" )?.innerHTML = userLoging.Login;
+				}
+			});
+		}
+	});
+	if(!existMachine){
+		addConsola('No existe la maquina con dirección ip '+dest[1]);
+	}
+	if(!existUser && existMachine){
+		addConsola('No existe el usuario '+dest[0]+' en la maquina '+dest[1]);
+	}
+
 }
 
 function commandLs(parametro: boolean){
