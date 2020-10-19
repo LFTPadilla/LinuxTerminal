@@ -162,9 +162,10 @@ function procesarComando ( comando: any )
 			commandLs(comandoParametros[1]?comandoParametros[1]=='-l':false);
 			break;
 		case "cat":
-			cat(comandoParametros)
+			cat(comandoParametros[1])
 			break;
-		case "":
+		case "nano":
+			nano(comandoParametros[1])
 			break;
 		case "":
 			break;
@@ -281,9 +282,40 @@ function chmod(parameters:any){
 	}
 }
 
-function cat(parameters:any){
-	
+function cat(fileName:string){
+	if(fileName.length > 0){
+		let file = searchFile(fileName)
+		if(file != null){
+			if(canRead(userLoging, file)){
+				addConsola('cat: leyendo el contenido del archivo...')
+			}else{
+				addConsola('cat: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.')
+			}
+		}else{
+			addConsola('cat: no se puede acceder a ' + fileName + ': No existe el fichero.')
+		}
+	}else{
+		addConsola('cat: se esperaban más parametros')
+	}
 }
+
+function nano(fileName:string){
+	if(fileName.length > 0){
+		let file = searchFile(fileName)
+		if(file != null){
+			if(canWrite(userLoging, file)){
+				addConsola('nano: leyendo el contenido del archivo...')
+			}else{
+				addConsola('nano: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.')
+			}
+		}else{
+			addConsola('nano: no se puede acceder a ' + fileName + ': No existe el fichero.')
+		}
+	}else{
+		addConsola('nano: se esperaban más parametros')
+	}
+}
+
 function searchUser(name:String){
 
 	let user:User | undefined

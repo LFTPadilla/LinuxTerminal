@@ -10,13 +10,13 @@
 
 .alert {
     border-radius: 25px;
-    border: 2px solid #337E99;
+    border: 2px solid #00424D;
     padding: 20px;
     height: 150px;
     width:40%;
-    background-color: #337E99;
+    background-color: #00424D;
     font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    color: #FFFABF;
     transition: width 1s;
   }
   .alert:hover {
@@ -47,12 +47,12 @@ h1  {
 
 #consola {
     border-radius: 25px;
-    border: 2px solid #000000;
+    border: 2px solid #404040;
     padding: 20px; 
     height: 300px;   
     overflow:auto; 
-    background-color: #000000;
-    color: #00FF00;
+    background-color: #404040;
+    color: #87D936;
     font-family: Arial, Helvetica, sans-serif;
     display: inline-block; 
     text-align: left; 
@@ -65,8 +65,8 @@ h1  {
 input {
     border: none;
     outline: none;
-    background-color: #000000;
-    color: #00FF00;
+    background-color: #404040;
+    color: #D9D9D9;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
@@ -79,4 +79,8 @@ footer {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #F2EDE4;
+}
+
+.colorSymbol{
+  color: #4E7FBF;
 }

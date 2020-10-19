@@ -146,9 +146,10 @@ function procesarComando(comando) {
             commandLs(comandoParametros[1] ? comandoParametros[1] == '-l' : false);
             break;
         case "cat":
-            cat(comandoParametros);
+            cat(comandoParametros[1]);
             break;
-        case "":
+        case "nano":
+            nano(comandoParametros[1]);
             break;
         case "":
             break;
@@ -259,7 +260,43 @@ function chmod(parameters) {
         addConsola('chmod: se esperaban más parametros');
     }
 }
-function cat(parameters) {
+function cat(fileName) {
+    if (fileName.length > 0) {
+        var file = searchFile(fileName);
+        if (file != null) {
+            if (canRead(userLoging, file)) {
+                addConsola('cat: leyendo el contenido del archivo...');
+            }
+            else {
+                addConsola('cat: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.');
+            }
+        }
+        else {
+            addConsola('cat: no se puede acceder a ' + fileName + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('cat: se esperaban más parametros');
+    }
+}
+function nano(fileName) {
+    if (fileName.length > 0) {
+        var file = searchFile(fileName);
+        if (file != null) {
+            if (canWrite(userLoging, file)) {
+                addConsola('nano: leyendo el contenido del archivo...');
+            }
+            else {
+                addConsola('nano: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.');
+            }
+        }
+        else {
+            addConsola('nano: no se puede acceder a ' + fileName + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('nano: se esperaban más parametros');
+    }
 }
 function searchUser(name) {
     var user;
