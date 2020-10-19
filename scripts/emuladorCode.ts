@@ -246,7 +246,12 @@ function commandTouch(nombre: string){
 		if(element.Name == nombre){
 			exist = true;
 			if (canWrite(userLoging, element)) {
-				element.Date = new Date()+'';
+				let aux = new Date
+				let day = ("0" + aux.getDate()).slice(-2)
+				let month = ("0" + (aux.getMonth() + 1)).slice(-2)
+				let year = aux.getFullYear()
+
+				element.Date = day + '/' + month + '/' + year
 			}else{
 				addConsola('touch: no se puede efectuar ´touch´ sobre ´'+nombre+ '´: Permiso denegado');
 			}		
@@ -254,8 +259,14 @@ function commandTouch(nombre: string){
 	});
 
 	if(!exist){
+		let aux = new Date
+		let day = ("0" + aux.getDate()).slice(-2)
+		let month = ("0" + (aux.getMonth() + 1)).slice(-2)
+		let year = aux.getFullYear()
+
+		let date = day + '/' + month + '/' + year
 		let log = userLoging!=undefined?userLoging.Login:null;
-		let newFile: FileMachine = new FileMachine(nombre, log,log, new Date()+'', '664');
+		let newFile: FileMachine = new FileMachine(nombre, log,log, date +'', '664');
 		maquinas[machineSelected].myFiles.push(newFile);
 	}
 }
