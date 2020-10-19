@@ -104,9 +104,6 @@ function procesarEntrada( e: any )
 }
 
 
-
-
-
 function procesarComando ( comando: any )
 {
 	var comandoParametros = comando.value.split(" ");
@@ -152,7 +149,8 @@ function procesarComando ( comando: any )
 		case "touch":
 			commandTouch(comandoParametros[1]?comandoParametros[1]:'' );
 			break;
-		case "":
+		case "sudo":
+			sudo(comandoParametros);
 			break;
 		case "":
 			break;
@@ -221,6 +219,74 @@ function commandTouch(nombre: string){
 	}
 }
 
+function sudo(parametros: any){
+	if(parametros.length > 1){
+		let comando = parametros[1]
+		if(comando == "chown"){
+			chown(parametros)
+		}
+	}else{
+		addConsola('sudo: se esperaba un comando.')
+	}
+}
+
+function chown(parametros:any){
+
+	if(parametros.length > 2){
+		let text = parametros[2].split(":")
+		let owner = searchUser(text[0])
+		let group = searchGroup(text[1])
+		let fileName = searchFile(parametros[3])
+
+		if(fileName != null){
+			if(owner != null){
+				fileName.Owner = owner
+			}else{
+				addConsola('chown: Usuario inexistente: ' + owner)
+			}
+			if(group != null){
+				file.Group = group
+			}else{
+				addConsola('chown: grupo inexistente: ' + group)
+			}
+					
+		}else{
+			addConsola('chown: no se puede acceder a ' + fileName.Name + ': No existe el fichero.')
+		}
+	}
+}
+
+function searchUser(name:String){
+
+	let user1:User
+	maquinas[machineSelected].myUsers.forEach(user => {
+		if(user.Name == name){
+			user1 = user
+		}
+	});
+
+	return user1
+}
+
+function searchGroup(name:String){
+	maquinas[machineSelected].myGroups.forEach(group => {
+		if(group.Name == name){
+			return group
+		}else{
+			return null
+		}
+	});
+}
+
+function searchFile(name:String){
+	maquinas[machineSelected].myFiles.forEach(file => {
+		if(file.Name == name){
+			return file
+		}else{
+			return null
+		}
+	});
+}
 function convertFormatPermissions(permisos: string){
 	var aux = "-";
     if (permisos.length > 3) {
@@ -301,12 +367,6 @@ function canExecute(user: User|null, archive:FileMachine) {
 		}
 	}
 }
-
-
-
-
-
-
 
 
 

@@ -133,7 +133,8 @@ function procesarComando(comando) {
         case "touch":
             commandTouch(comandoParametros[1] ? comandoParametros[1] : '');
             break;
-        case "":
+        case "sudo":
+            sudo(comandoParametros);
             break;
         case "":
             break;
@@ -193,6 +194,46 @@ function commandTouch(nombre) {
         var log = userLoging != undefined ? userLoging.Login : null;
         var newFile = new FileMachine(nombre, log, log, new Date() + '', '664');
         maquinas[machineSelected].myFiles.push(newFile);
+    }
+}
+function sudo(parametros) {
+    if (parametros.length > 1) {
+        var comando = parametros[1];
+        if (comando == "chown") {
+            chown(parametros);
+        }
+    }
+    else {
+        addConsola('sudo: se esperaba un comando.');
+    }
+}
+function chown(parametros) {
+    if (parametros.length > 2) {
+        var text = parametros[2].split(":");
+        var owner_1 = text[0];
+        var group_1 = text[1];
+        var fileName_1 = parametros[3];
+        if (fileName_1 != null) {
+            maquinas[machineSelected].myFiles.forEach(function (file) {
+                if (file.Name == fileName_1) {
+                    if (owner_1 != null) {
+                        file.Owner = owner_1;
+                    }
+                    else {
+                        addConsola('chown: Usuario inexistente: ' + owner_1);
+                    }
+                    if (group_1 != null) {
+                        file.Group = group_1;
+                    }
+                    else {
+                        addConsola('chown: grupo inexistente: ' + group_1);
+                    }
+                }
+            });
+        }
+        else {
+            addConsola('chown: no se puede acceder a ' + fileName_1 + ': No existe el fichero.');
+        }
     }
 }
 function convertFormatPermissions(permisos) {

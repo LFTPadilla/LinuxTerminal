@@ -8,7 +8,26 @@
  version 1.0
 */
 
-
+.alert {
+    padding: 20px;
+    background-color: #337E99;
+    color: white;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
 h1  {
     margin: 0;
     text-align: center;
