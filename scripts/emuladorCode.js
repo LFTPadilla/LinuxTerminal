@@ -17,40 +17,40 @@ var maquinas = [
             { Name: 'alv' },
             { Name: 'pipe' },
             { Name: 'sebas' }
-        ], myFiles: [{ Name: 'linuxMint.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '14/11/2020' }, { Name: 'leeme.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '20/12/2019' }, { Name: 'fotoPajaro.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '14/10/2020' }, { Name: 'compri2.zip', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '31/05/2019' }] },
+        ], myFiles: [{ Name: 'linuxMint.iso', Owner: 'sebas', Group: 'sebas', permissions: '664', Date: '14/11/2020' }, { Name: 'leeme.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '20/12/2019' }, { Name: 'fotoPajaro.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '14/10/2020' }, { Name: 'compri2.zip', Owner: 'luis', Group: 'luis', permissions: '664', Date: '31/05/2019' }] },
     { Name: 'Majaro', Disk: '/mach1', IPNumber: '176.36.84.94', myUsers: [
             { Name: 'Luis', Login: 'luis', groups: [], Passwd: '123' },
-            { Name: 'Alvaro', Login: 'alv', groups: [], Passwd: null },
-            { Name: 'Felipe', Login: 'pipe', groups: [], Passwd: null },
-            { Name: 'Sebastian', Login: 'sebas', groups: [], Passwd: null },
+            { Name: 'Tabares', Login: 'taba', groups: [], Passwd: null },
+            { Name: 'Carlos', Login: 'carlos', groups: [], Passwd: null },
+            { Name: 'Julian', Login: 'julian', groups: [], Passwd: null },
         ], myGroups: [
             { Name: 'luis' },
-            { Name: 'alv' },
-            { Name: 'pipe' },
-            { Name: 'sebas' }
-        ], myFiles: [{ Name: 'Majaro.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '01/09/2020' }, { Name: 'leeme.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '02/12/2020' }, { Name: 'foto.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '3/02/2019' }, { Name: 'compri.zip', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '04/06/2018' }] },
+            { Name: 'taba' },
+            { Name: 'carlos' },
+            { Name: 'julian' }
+        ], myFiles: [{ Name: 'Manjaro.iso', Owner: 'luis', Group: 'luis', permissions: '664', Date: '01/09/2020' }, { Name: 'about.txt', Owner: 'taba', Group: 'taba', permissions: '664', Date: '02/12/2020' }, { Name: 'foto.jpg', Owner: 'taba', Group: 'taba', permissions: '664', Date: '3/02/2019' }, { Name: 'compri.zip', Owner: 'carlos', Group: 'carlos', permissions: '664', Date: '04/06/2018' }] },
     { Name: 'Ubuntu', Disk: '/mach2', IPNumber: '160.83.18.19', myUsers: [
-            { Name: 'Luis', Login: 'luis', groups: [], Passwd: '123' },
-            { Name: 'Alvaro', Login: 'alv', groups: [], Passwd: null },
+            { Name: 'Luisa', Login: 'lu', groups: [], Passwd: '123' },
+            { Name: 'Gaviria', Login: 'gaviria', groups: [], Passwd: null },
             { Name: 'Felipe', Login: 'pipe', groups: [], Passwd: null },
             { Name: 'Sebastian', Login: 'sebas', groups: [], Passwd: null },
         ], myGroups: [
-            { Name: 'luis' },
-            { Name: 'alv' },
+            { Name: 'lu' },
+            { Name: 'gaviria' },
             { Name: 'pipe' },
             { Name: 'sebas' }
-        ], myFiles: [{ Name: 'Ubuntu.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '05/09/2020' }, { Name: 'leeme.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '06/12/2020' }, { Name: 'amazon.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '07/02/2019' }, { Name: 'video.zip', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '08/06/2018' }] },
-    { Name: 'Fedora', Disk: '/mach3', IPNumber: '198.168.0.100', myUsers: [
-            { Name: 'Luis', Login: 'luis', groups: [], Passwd: '123' },
-            { Name: 'Alvaro', Login: 'alv', groups: [], Passwd: null },
-            { Name: 'Felipe', Login: 'pipe', groups: [], Passwd: null },
-            { Name: 'Sebastian', Login: 'sebas', groups: [], Passwd: null },
+        ], myFiles: [{ Name: 'Ubuntu.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '05/09/2020' }, { Name: 'miTexto.txt', Owner: 'lu', Group: 'lu', permissions: '664', Date: '06/12/2020' }, { Name: 'amazon.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '07/02/2019' }, { Name: 'video.zip', Owner: 'lu', Group: 'lu', permissions: '664', Date: '08/06/2018' }] },
+    { Name: 'Fedora', Disk: '/mach3', IPNumber: '198.38.148.20', myUsers: [
+            { Name: 'Maria', Login: 'maria', groups: [], Passwd: '123' },
+            { Name: 'Andres', Login: 'andres', groups: [], Passwd: null },
+            { Name: 'Daniel', Login: 'daniel', groups: [], Passwd: null },
+            { Name: 'Miguel', Login: 'miguel', groups: [], Passwd: null },
         ], myGroups: [
-            { Name: 'luis' },
-            { Name: 'alv' },
-            { Name: 'pipe' },
-            { Name: 'sebas' }
-        ], myFiles: [{ Name: 'Fedora.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '07/09/2020' }, { Name: 'leeme.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '08/12/2020' }, { Name: 'logo.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '24/02/2019' }, { Name: 'archivito.zip', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '28/06/2018' }] }
+            { Name: 'maria' },
+            { Name: 'andres' },
+            { Name: 'daniel' },
+            { Name: 'miguel' }
+        ], myFiles: [{ Name: 'Fedora.iso', Owner: 'andres', Group: 'andres', permissions: '664', Date: '07/09/2020' }, { Name: 'leeme.txt', Owner: 'daniel', Group: 'daniel', permissions: '664', Date: '08/12/2020' }, { Name: 'logo.jpg', Owner: 'miguel', Group: 'miguel', permissions: '664', Date: '24/02/2019' }, { Name: 'archivito.zip', Owner: 'maria', Group: 'maria', permissions: '664', Date: '28/06/2018' }] }
 ];
 IniciarConsola();
 var machineSelected = 0;
@@ -108,8 +108,8 @@ function procesarComando(comando) {
                         }
                     }
                     else {
-                        userLoging = user;
                         limpiarConsola();
+                        userLoging = user;
                         (_a = document.getElementById("userLogued")) === null || _a === void 0 ? void 0 : _a.innerHTML = user.Login;
                     }
                 }
@@ -133,61 +133,32 @@ function procesarComando(comando) {
         case "touch":
             commandTouch(comandoParametros[1] ? comandoParametros[1] : '');
             break;
-        case "":
+        case "sudo":
+            sudo(comandoParametros);
             break;
-        case "":
+        case "chown":
+            addConsola('chown: permiso denegado');
             break;
-        case "":
+        case "chmod":
+            chmod(comandoParametros);
             break;
         case "ls":
             commandLs(comandoParametros[1] ? comandoParametros[1] == '-l' : false);
             break;
-        case "":
+        case "cat":
+            cat(comandoParametros[1]);
             break;
-        case "":
+        case "nano":
+            nano(comandoParametros[1]);
             break;
-        case "":
-            break;
-        case "":
-            break;
-        case "ssh":
-            commandSsh(comandoParametros[1] ? comandoParametros[1] : '');
+        case "rm":
+            rm(comandoParametros[1]);
             break;
         case "":
             break;
         default:
-            console.log("No such day exists!");
+            addConsola('bash: comando desconocido');
             break;
-    }
-}
-function commandSsh(destino) {
-    var dest = destino.split('@');
-    if (destino == '' || dest.length == 1) {
-        addConsola('Por favor ingrese el usuario y la ip de la maquina destino: ssh usuario@ip');
-        return;
-    }
-    var existMachine = false;
-    var existUser = false;
-    maquinas.forEach(function (machine, iMach) {
-        if (machine.IPNumber === dest[1]) {
-            existMachine = true;
-            machine.myUsers.forEach(function (user) {
-                var _a;
-                if (user.Login == dest[0]) {
-                    existUser = true;
-                    machineSelected = iMach;
-                    userLoging = user;
-                    document.getElementById("machine").innerHTML = maquinas[machineSelected].Name;
-                    (_a = document.getElementById("userLogued")) === null || _a === void 0 ? void 0 : _a.innerHTML = userLoging.Login;
-                }
-            });
-        }
-    });
-    if (!existMachine) {
-        addConsola('No existe la maquina con dirección ip ' + dest[1]);
-    }
-    if (!existUser && existMachine) {
-        addConsola('No existe el usuario ' + dest[0] + ' en la maquina ' + dest[1]);
     }
 }
 function commandLs(parametro) {
@@ -225,6 +196,172 @@ function commandTouch(nombre) {
         var newFile = new FileMachine(nombre, log, log, new Date() + '', '664');
         maquinas[machineSelected].myFiles.push(newFile);
     }
+}
+function sudo(parametros) {
+    if (parametros.length > 1) {
+        var comando = parametros[1];
+        if (comando == "chown") {
+            chown(parametros);
+        }
+    }
+    else {
+        addConsola('sudo: se esperaba un comando.');
+    }
+}
+function chown(parameters) {
+    if (parameters.length > 2) {
+        var text = parameters[2].split(":");
+        var owner = searchUser(text[0]);
+        var group = searchGroup(text[1]);
+        var file = searchFile(parameters[3]);
+        if (file != null) {
+            if (owner != null) {
+                file.Owner = owner.Login;
+            }
+            else {
+                addConsola('chown: Usuario inexistente: ' + text[0]);
+            }
+            if (group != null) {
+                file.Group = group.Name;
+            }
+            else {
+                addConsola('chown: grupo inexistente: ' + text[1]);
+            }
+        }
+        else {
+            addConsola('chown: no se puede acceder a ' + parameters[3] + ': No existe el fichero.');
+        }
+    }
+}
+function chmod(parameters) {
+    if (parameters.length > 1) {
+        var file = searchFile(parameters[2]);
+        if (file != null) {
+            if (canWrite(userLoging, file)) {
+                if (parameters.length > 2) {
+                    file.permissions = parameters[1];
+                }
+                else {
+                    addConsola('chmod: se esperaban un archivo después de ' + parameters[1]);
+                }
+            }
+            else {
+                addConsola('chmod: no se puede modificar el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.');
+            }
+        }
+        else {
+            addConsola('chmod: no se puede acceder a ' + parameters[2] + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('chmod: se esperaban más parametros');
+    }
+}
+function cat(fileName) {
+    if (fileName != '') {
+        var file = searchFile(fileName);
+        if (file != null) {
+            if (canRead(userLoging, file)) {
+                addConsola('cat: leyendo el contenido del archivo...');
+            }
+            else {
+                addConsola('cat: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.');
+            }
+        }
+        else {
+            addConsola('cat: no se puede acceder a ' + fileName + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('cat: se esperaban más parametros');
+    }
+}
+function nano(fileName) {
+    if (fileName != '') {
+        var file = searchFile(fileName);
+        if (file != null) {
+            if (canWrite(userLoging, file)) {
+                addConsola('nano: escribiendo en el archivo...');
+            }
+            else {
+                addConsola('nano: no se puede escribir sobre el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.');
+            }
+        }
+        else {
+            addConsola('nano: no se puede acceder a ' + fileName + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('nano: se esperaban más parametros');
+    }
+}
+function rm(toDelete) {
+    if (toDelete != '') {
+        var file = searchFile(toDelete);
+        if (file != null) {
+            if (canWrite(userLoging, file)) {
+                var pos = maquinas[machineSelected].myFiles.indexOf(file);
+                maquinas[machineSelected].myFiles.splice(pos, 1);
+            }
+            else {
+                addConsola('rm: no se puede eliminar el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.');
+            }
+        }
+        else {
+            addConsola('rm: no se puede acceder a ' + toDelete + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('rm: se esperaban más parametros');
+    }
+}
+function execute(toExecute) {
+    var parameters = toExecute.split('/');
+    var fileName = parameters[1];
+    if (fileName != '') {
+        var file = searchFile(fileName);
+        if (file != null) {
+            if (canExecute(userLoging, file)) {
+                addConsola('bash: ejecutando en el archivo...');
+            }
+            else {
+                addConsola('bash: no se puede ejecutar el fichero ' + file.Name + ': el usuario no tiene permiso de ejecución.');
+            }
+        }
+        else {
+            addConsola('bash: no se puede acceder a ' + fileName + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('bash: se esperaban más parametros');
+    }
+}
+function searchUser(name) {
+    var user;
+    maquinas[machineSelected].myUsers.forEach(function (element) {
+        if (element.Login == name) {
+            user = element;
+        }
+    });
+    return user;
+}
+function searchGroup(name) {
+    var group;
+    maquinas[machineSelected].myGroups.forEach(function (element) {
+        if (element.Name == name) {
+            group = element;
+        }
+    });
+    return group;
+}
+function searchFile(name) {
+    var file;
+    maquinas[machineSelected].myFiles.forEach(function (element) {
+        if (element.Name == name) {
+            file = element;
+        }
+    });
+    return file;
 }
 function convertFormatPermissions(permisos) {
     var aux = "-";
