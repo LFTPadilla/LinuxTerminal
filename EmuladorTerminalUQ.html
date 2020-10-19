@@ -20,10 +20,7 @@
     <center>
 
       <!-- Titulos -->
-      <h1>Emulador de una Terminal y Varias Máquinas en Red</h1>
-      <h3>Julián E. Gutiérrez P. y Carlos E. Gomez M.</h3>
-
-      <tt><b>Máquinas:</b> ventas (192.168.0.12), compras (192.168.0.23)</tt>
+      <h1>Emulador de una Terminal</h1>
 
       <p>
 
@@ -32,14 +29,15 @@
         <div class="alert">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
           <h4 class="alert-heading">Máquinas:</h4>
-          LinuxMint (186.83.110.98) Usuarios: {luis, alv, pipe, sebas} <br>
-          Majaro (176.36.84.94) Usuarios: {luis, alv, pipe, sebas} <br>
-          Ubuntu (160.83.18.19) Usuarios: {luis, alv, pipe, sebas} <br>
-          Fedora (198.38.148.20) Usuarios: {luis, alv, pipe, sebas} <br>
+          LinuxMint (186.83.110.98) Usuarios: [luis, alv, pipe, sebas] <br>
+          Majaro (176.36.84.94) Usuarios: [luis, alv, pipe, sebas] <br>
+          Ubuntu (160.83.18.19) Usuarios: [luis, alv, pipe, sebas] <br>
+          Fedora (198.38.148.20) Usuarios: [luis, alv, pipe, sebas] <br>
         </div>
+        <br>
       <div id="consola" contenteditable="false" >
         <div id="textoImprimir"><p></div>
-        <span id="prompt"></span><span id="userLogued" ></span>@<span id="machine"></span>$ <input id="entrada" type="text" size="100" value=""  onkeypress="procesarEntrada(event);">    
+        <span id="prompt" class="promptmodificado"></span><span id="userLogued" ></span>@<span id="machine"></span>$ <input id="entrada" type="text" size="100" value=""  onkeypress="procesarEntrada(event);">    
       </div>
 
     </center>
@@ -47,7 +45,7 @@
     <p>
     
     <!-- Licencia del software -->
-    <footer class="page-footer bg-dark text-white fixed-bottom">
+    <footer>
       <div class="container-fluid text-md-left">
         <center>
           <font size="1"> <br>

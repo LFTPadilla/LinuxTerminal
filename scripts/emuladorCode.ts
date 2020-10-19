@@ -152,9 +152,11 @@ function procesarComando ( comando: any )
 		case "sudo":
 			sudo(comandoParametros);
 			break;
-		case "":
+		case "chown":
+			addConsola('chown: permiso denegado');
 			break;
-		case "":
+		case "chmod":
+			chmod(comandoParametros)
 			break;
 		case "ls":
 			commandLs(comandoParametros[1]?comandoParametros[1]=='-l':false);
@@ -230,62 +232,84 @@ function sudo(parametros: any){
 	}
 }
 
-function chown(parametros:any){
+function chown(parameters:any){
 
-	if(parametros.length > 2){
-		let text = parametros[2].split(":")
+	if(parameters.length > 2){
+		let text = parameters[2].split(":")
 		let owner = searchUser(text[0])
 		let group = searchGroup(text[1])
-		let fileName = searchFile(parametros[3])
+		let file = searchFile(parameters[3])
 
-		if(fileName != null){
+		if(file != null){
 			if(owner != null){
-				fileName.Owner = owner
+				file.Owner = owner.Login
 			}else{
-				addConsola('chown: Usuario inexistente: ' + owner)
+				addConsola('chown: Usuario inexistente: ' + text[0])
 			}
 			if(group != null){
-				file.Group = group
+				file.Group = group.Name
 			}else{
-				addConsola('chown: grupo inexistente: ' + group)
+				addConsola('chown: grupo inexistente: ' + text[1])
 			}
 					
 		}else{
-			addConsola('chown: no se puede acceder a ' + fileName.Name + ': No existe el fichero.')
+			addConsola('chown: no se puede acceder a ' + parameters[3] + ': No existe el fichero.')
 		}
 	}
 }
 
+function chmod(parameters:any){
+	if(parameters.length > 1){
+		let file = searchFile(parameters[2])
+		if(file != null){
+			if(canWrite(userLoging, file)){
+				if(parameters.length > 2){
+					file.permissions = parameters[1]
+				}else{
+					addConsola('chmod: se esperaban un archivo después de ' + parameters[1])
+				}
+			
+			}else{
+				addConsola('chmod: no se puede modificar el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.')
+			}
+		}else{
+			addConsola('chmod: no se puede acceder a ' + parameters[2] + ': No existe el fichero.')
+		}
+	}else{
+		addConsola('chmod: se esperaban más parametros')
+	}
+}
 function searchUser(name:String){
 
-	let user1:User
-	maquinas[machineSelected].myUsers.forEach(user => {
-		if(user.Name == name){
-			user1 = user
+	let user:User | undefined
+
+	maquinas[machineSelected].myUsers.forEach(element => {
+		if(element.Login == name){
+			user = element
 		}
 	});
 
-	return user1
+	return user
 }
 
 function searchGroup(name:String){
-	maquinas[machineSelected].myGroups.forEach(group => {
-		if(group.Name == name){
-			return group
-		}else{
-			return null
+	let group:Group | undefined
+	maquinas[machineSelected].myGroups.forEach(element => {
+		if(element.Name == name){
+			group = element
 		}
 	});
+	return group
 }
 
 function searchFile(name:String){
-	maquinas[machineSelected].myFiles.forEach(file => {
-		if(file.Name == name){
-			return file
-		}else{
-			return null
+	let file: FileMachine | undefined
+	maquinas[machineSelected].myFiles.forEach(element => {
+		if(element.Name == name){
+			file = element
 		}
 	});
+	return file
 }
 function convertFormatPermissions(permisos: string){
 	var aux = "-";

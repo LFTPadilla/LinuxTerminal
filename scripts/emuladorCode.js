@@ -136,9 +136,11 @@ function procesarComando(comando) {
         case "sudo":
             sudo(comandoParametros);
             break;
-        case "":
+        case "chown":
+            addConsola('chown: permiso denegado');
             break;
-        case "":
+        case "chmod":
+            chmod(comandoParametros);
             break;
         case "ls":
             commandLs(comandoParametros[1] ? comandoParametros[1] == '-l' : false);
@@ -207,34 +209,81 @@ function sudo(parametros) {
         addConsola('sudo: se esperaba un comando.');
     }
 }
-function chown(parametros) {
-    if (parametros.length > 2) {
-        var text = parametros[2].split(":");
-        var owner_1 = text[0];
-        var group_1 = text[1];
-        var fileName_1 = parametros[3];
-        if (fileName_1 != null) {
-            maquinas[machineSelected].myFiles.forEach(function (file) {
-                if (file.Name == fileName_1) {
-                    if (owner_1 != null) {
-                        file.Owner = owner_1;
-                    }
-                    else {
-                        addConsola('chown: Usuario inexistente: ' + owner_1);
-                    }
-                    if (group_1 != null) {
-                        file.Group = group_1;
-                    }
-                    else {
-                        addConsola('chown: grupo inexistente: ' + group_1);
-                    }
-                }
-            });
+function chown(parameters) {
+    if (parameters.length > 2) {
+        var text = parameters[2].split(":");
+        var owner = searchUser(text[0]);
+        var group = searchGroup(text[1]);
+        var file = searchFile(parameters[3]);
+        if (file != null) {
+            if (owner != null) {
+                file.Owner = owner.Login;
+            }
+            else {
+                addConsola('chown: Usuario inexistente: ' + text[0]);
+            }
+            if (group != null) {
+                file.Group = group.Name;
+            }
+            else {
+                addConsola('chown: grupo inexistente: ' + text[1]);
+            }
         }
         else {
-            addConsola('chown: no se puede acceder a ' + fileName_1 + ': No existe el fichero.');
+            addConsola('chown: no se puede acceder a ' + parameters[3] + ': No existe el fichero.');
         }
     }
+}
+function chmod(parameters) {
+    if (parameters.length > 1) {
+        var file = searchFile(parameters[2]);
+        if (file != null) {
+            if (canWrite(userLoging, file)) {
+                if (parameters.length > 2) {
+                    file.permissions = parameters[1];
+                }
+                else {
+                    addConsola('chmod: se esperaban un archivo después de ' + parameters[1]);
+                }
+            }
+            else {
+                addConsola('chmod: no se puede modificar el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.');
+            }
+        }
+        else {
+            addConsola('chmod: no se puede acceder a ' + parameters[2] + ': No existe el fichero.');
+        }
+    }
+    else {
+        addConsola('chmod: se esperaban más parametros');
+    }
+}
+function searchUser(name) {
+    var user;
+    maquinas[machineSelected].myUsers.forEach(function (element) {
+        if (element.Login == name) {
+            user = element;
+        }
+    });
+    return user;
+}
+function searchGroup(name) {
+    var group;
+    maquinas[machineSelected].myGroups.forEach(function (element) {
+        if (element.Name == name) {
+            group = element;
+        }
+    });
+    return group;
+}
+function searchFile(name) {
+    var file;
+    maquinas[machineSelected].myFiles.forEach(function (element) {
+        if (element.Name == name) {
+            file = element;
+        }
+    });
+    return file;
 }
 function convertFormatPermissions(permisos) {
     var aux = "-";
