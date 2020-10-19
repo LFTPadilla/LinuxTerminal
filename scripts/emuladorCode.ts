@@ -18,40 +18,40 @@ let maquinas: Machine[] = [
 	{Name:'alv'},
 	{Name:'pipe'},
 	{Name:'sebas'}
-] ,myFiles: [{Name:'linuxMint.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'14/11/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'20/12/2019'},{Name:'fotoPajaro.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'14/10/2020'},{Name:'compri2.zip', Owner:'pipe', Group:'pipe',permissions:'664', Date:'31/05/2019'}]},
+] ,myFiles: [{Name:'linuxMint.iso', Owner:'sebas', Group:'sebas',permissions:'664', Date:'14/11/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'20/12/2019'},{Name:'fotoPajaro.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'14/10/2020'},{Name:'compri2.zip', Owner:'luis', Group:'luis',permissions:'664', Date:'31/05/2019'}]},
 	{Name: 'Majaro', Disk:'/mach1', IPNumber:'176.36.84.94', myUsers: [ 
 	{Name:'Luis',Login:'luis',groups:[],Passwd:'123'},
-	{Name:'Alvaro',Login:'alv',groups:[],Passwd: null},
-	{Name:'Felipe',Login:'pipe',groups:[],Passwd:null},
-	{Name:'Sebastian',Login:'sebas',groups:[],Passwd:null},
+	{Name:'Tabares',Login:'taba',groups:[],Passwd: null},
+	{Name:'Carlos',Login:'carlos',groups:[],Passwd:null},
+	{Name:'Julian',Login:'julian',groups:[],Passwd:null},
 ] , myGroups: [ 
 	{Name:'luis'},
-	{Name:'alv'},
-	{Name:'pipe'},
-	{Name:'sebas'}
-] ,myFiles: [{Name:'Majaro.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'01/09/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'02/12/2020'},{Name:'foto.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'3/02/2019'},{Name:'compri.zip', Owner:'pipe', Group:'pipe',permissions:'664', Date:'04/06/2018'}]},
+	{Name:'taba'},
+	{Name:'carlos'},
+	{Name:'julian'}
+] ,myFiles: [{Name:'Manjaro.iso', Owner:'luis', Group:'luis',permissions:'664', Date:'01/09/2020'},{Name:'about.txt', Owner:'taba', Group:'taba',permissions:'664', Date:'02/12/2020'},{Name:'foto.jpg', Owner:'taba', Group:'taba',permissions:'664', Date:'3/02/2019'},{Name:'compri.zip', Owner:'carlos', Group:'carlos',permissions:'664', Date:'04/06/2018'}]},
 	{Name: 'Ubuntu', Disk:'/mach2', IPNumber:'160.83.18.19', myUsers: [ 
-	{Name:'Luis',Login:'luis',groups:[],Passwd:'123'},
-	{Name:'Alvaro',Login:'alv',groups:[],Passwd: null},
+	{Name:'Luisa',Login:'lu',groups:[],Passwd:'123'},
+	{Name:'Gaviria',Login:'gaviria',groups:[],Passwd: null},
 	{Name:'Felipe',Login:'pipe',groups:[],Passwd:null},
 	{Name:'Sebastian',Login:'sebas',groups:[],Passwd:null},
 ] , myGroups: [ 
-	{Name:'luis'},
-	{Name:'alv'},
+	{Name:'lu'},
+	{Name:'gaviria'},
 	{Name:'pipe'},
 	{Name:'sebas'}
-] ,myFiles: [{Name:'Ubuntu.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'05/09/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'06/12/2020'},{Name:'amazon.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'07/02/2019'},{Name:'video.zip', Owner:'pipe', Group:'pipe',permissions:'664', Date:'08/06/2018'}]},
+] ,myFiles: [{Name:'Ubuntu.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'05/09/2020'},{Name:'miTexto.txt', Owner:'lu', Group:'lu',permissions:'664', Date:'06/12/2020'},{Name:'amazon.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'07/02/2019'},{Name:'video.zip', Owner:'lu', Group:'lu',permissions:'664', Date:'08/06/2018'}]},
 	{Name: 'Fedora', Disk:'/mach3', IPNumber:'198.38.148.20', myUsers: [ 
-	{Name:'Luis',Login:'luis',groups:[],Passwd:'123'},
-	{Name:'Alvaro',Login:'alv',groups:[],Passwd: null},
-	{Name:'Felipe',Login:'pipe',groups:[],Passwd:null},
-	{Name:'Sebastian',Login:'sebas',groups:[],Passwd:null},
+	{Name:'Maria',Login:'maria',groups:[],Passwd:'123'},
+	{Name:'Andres',Login:'andres',groups:[],Passwd: null},
+	{Name:'Daniel',Login:'daniel',groups:[],Passwd:null},
+	{Name:'Miguel',Login:'miguel',groups:[],Passwd:null},
 ] , myGroups: [ 
-	{Name:'luis'},
-	{Name:'alv'},
-	{Name:'pipe'},
-	{Name:'sebas'}
-] ,myFiles: [{Name:'Fedora.iso', Owner:'pipe', Group:'pipe',permissions:'664', Date:'07/09/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'08/12/2020'},{Name:'logo.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'24/02/2019'},{Name:'archivito.zip', Owner:'pipe', Group:'pipe',permissions:'664', Date:'28/06/2018'}]}
+	{Name:'maria'},
+	{Name:'andres'},
+	{Name:'daniel'},
+	{Name:'miguel'}
+] ,myFiles: [{Name:'Fedora.iso', Owner:'andres', Group:'andres',permissions:'664', Date:'07/09/2020'},{Name:'leeme.txt', Owner:'daniel', Group:'daniel',permissions:'664', Date:'08/12/2020'},{Name:'logo.jpg', Owner:'miguel', Group:'miguel',permissions:'664', Date:'24/02/2019'},{Name:'archivito.zip', Owner:'maria', Group:'maria',permissions:'664', Date:'28/06/2018'}]}
 ]; 
 
 IniciarConsola();
@@ -107,7 +107,6 @@ function procesarEntrada( e: any )
 function procesarComando ( comando: any )
 {
 	var comandoParametros = comando.value.split(" ");
-	
 
 	if(comandoParametros[0] == 'clear'){
 		limpiarConsola();
@@ -123,9 +122,10 @@ function procesarComando ( comando: any )
 						if(user.Passwd == comandoParametros[1]){
 						}
 					}else{
-						userLoging=user;
 						limpiarConsola();
+						userLoging=user;
 						document.getElementById( "userLogued" )?.innerHTML = user.Login;
+						
 					}
 				}
 			});
@@ -167,17 +167,15 @@ function procesarComando ( comando: any )
 		case "nano":
 			nano(comandoParametros[1])
 			break;
-		case "":
-			break;
-		case "":
-			break;
-		case "":
+		case "rm":
+			rm(comandoParametros[1])
 			break;
 		case "":
 			break;
 		default:
-			console.log("No such day exists!");
+			addConsola('bash: comando desconocido');
 			break;
+
 	}	
 }
 
@@ -195,8 +193,6 @@ function commandLs(parametro: boolean){
 	}
 
 }
-
-
 
 function commandTouch(nombre: string){
 	if(nombre==''){
@@ -261,7 +257,7 @@ function chown(parameters:any){
 }
 
 function chmod(parameters:any){
-	if(parameters.length > 1){
+	if(parameters.length > 1 ){
 		let file = searchFile(parameters[2])
 		if(file != null){
 			if(canWrite(userLoging, file)){
@@ -283,7 +279,7 @@ function chmod(parameters:any){
 }
 
 function cat(fileName:string){
-	if(fileName.length > 0){
+	if(fileName != ''){
 		let file = searchFile(fileName)
 		if(file != null){
 			if(canRead(userLoging, file)){
@@ -300,13 +296,13 @@ function cat(fileName:string){
 }
 
 function nano(fileName:string){
-	if(fileName.length > 0){
+	if(fileName != ''){
 		let file = searchFile(fileName)
 		if(file != null){
 			if(canWrite(userLoging, file)){
-				addConsola('nano: leyendo el contenido del archivo...')
+				addConsola('nano: escribiendo en el archivo...')
 			}else{
-				addConsola('nano: no se puede leer el fichero ' + file.Name + ': el usuario no tiene permiso de lectura.')
+				addConsola('nano: no se puede escribir sobre el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.')
 			}
 		}else{
 			addConsola('nano: no se puede acceder a ' + fileName + ': No existe el fichero.')
@@ -315,8 +311,45 @@ function nano(fileName:string){
 		addConsola('nano: se esperaban más parametros')
 	}
 }
+function rm (toDelete:string){
+	if(toDelete != ''){
+		let file = searchFile(toDelete)
+		if(file != null){
+			if(canWrite(userLoging, file)){
+				  let pos = maquinas[machineSelected].myFiles.indexOf(file)
+				  maquinas[machineSelected].myFiles.splice(pos,1)
+			}else{
+				addConsola('rm: no se puede eliminar el fichero ' + file.Name + ': el usuario no tiene permiso de escritura.')
+			}
+		}else{
+			addConsola('rm: no se puede acceder a ' + toDelete + ': No existe el fichero.')
+		}
+	}else{
+		addConsola('rm: se esperaban más parametros')
+	}
+}
+function execute(toExecute:string){
 
-function searchUser(name:String){
+		let parameters = toExecute.split('/')
+		let fileName = parameters[1]
+		if(fileName != ''){
+			let file = searchFile(fileName)
+			if(file != null){
+				if(canExecute(userLoging,file)){
+					addConsola('bash: ejecutando en el archivo...')
+				}else{
+					addConsola('bash: no se puede ejecutar el fichero ' + file.Name + ': el usuario no tiene permiso de ejecución.')
+				}
+			}else{
+				addConsola('bash: no se puede acceder a ' + fileName + ': No existe el fichero.')
+			}
+		}else{
+			addConsola('bash: se esperaban más parametros')
+		}
+}
+
+
+function searchUser(name:string){
 
 	let user:User | undefined
 
@@ -329,7 +362,7 @@ function searchUser(name:String){
 	return user
 }
 
-function searchGroup(name:String){
+function searchGroup(name:string){
 	let group:Group | undefined
 	maquinas[machineSelected].myGroups.forEach(element => {
 		if(element.Name == name){
@@ -339,7 +372,7 @@ function searchGroup(name:String){
 	return group
 }
 
-function searchFile(name:String){
+function searchFile(name:string){
 	let file: FileMachine | undefined
 	maquinas[machineSelected].myFiles.forEach(element => {
 		if(element.Name == name){
