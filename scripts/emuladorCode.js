@@ -154,11 +154,42 @@ function procesarComando(comando) {
         case "rm":
             rm(comandoParametros[1]);
             break;
-        case "":
+        case "ssh":
+            commandSsh(comandoParametros[1] ? comandoParametros[1] : '');
             break;
         default:
             addConsola('bash: comando desconocido');
             break;
+    }
+}
+function commandSsh(destino) {
+    var dest = destino.split('@');
+    if (destino == '' || dest.length == 1) {
+        addConsola('Por favor ingrese el usuario y la ip de la maquina destino: ssh usuario@ip');
+        return;
+    }
+    var existMachine = false;
+    var existUser = false;
+    maquinas.forEach(function (machine, iMach) {
+        if (machine.IPNumber === dest[1]) {
+            existMachine = true;
+            machine.myUsers.forEach(function (user) {
+                var _a;
+                if (user.Login == dest[0]) {
+                    existUser = true;
+                    machineSelected = iMach;
+                    userLoging = user;
+                    document.getElementById("machine").innerHTML = maquinas[machineSelected].Name;
+                    (_a = document.getElementById("userLogued")) === null || _a === void 0 ? void 0 : _a.innerHTML = userLoging.Login;
+                }
+            });
+        }
+    });
+    if (!existMachine) {
+        addConsola('No existe la maquina con dirección ip ' + dest[1]);
+    }
+    if (!existUser && existMachine) {
+        addConsola('No existe el usuario ' + dest[0] + ' en la maquina ' + dest[1]);
     }
 }
 function commandLs(parametro) {
