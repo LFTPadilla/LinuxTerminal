@@ -1,10 +1,10 @@
 /*
  description Emulador de una terminal y varias máquinas en red usando Javascript
- author Julián Esteban Gutiérrez Posada y Carlos Eduardo Gomez Montoya
- email jugutier@uniquindio.edu.co carloseg@uniquindio.edu.co
+ author Álvaro Sebastián Tabares Gaviria y Luis Felipe Tejada Padilla
+ email astabaresg@uqvirtual.edu.co lftejadap@uqvirtual.edu.co
  licence GNU General Public License  Ver. 4.0 (GNU GPL v4)
- date Septiembre 2020
- version 1.0
+ date octubre 2020
+ version 2.0
 */
 var maquinas = [
     { Name: 'LinuxMint', Disk: '/mach0', IPNumber: '186.83.110.98', myUsers: [
@@ -157,10 +157,20 @@ function procesarComando(comando) {
         case "ssh":
             commandSsh(comandoParametros[1] ? comandoParametros[1] : '');
             break;
-        default:
-            addConsola('bash: comando desconocido');
+        case "scp":
+            commandSCP(comandoParametros);
             break;
+        default:
+            if (comando.value[0] == '.') {
+                execute(comando);
+            }
+            else {
+                addConsola('bash: comando desconocido');
+                break;
+            }
     }
+}
+function commandSCP(parametros) {
 }
 function commandSsh(destino) {
     var dest = destino.split('@');
@@ -347,13 +357,13 @@ function rm(toDelete) {
     }
 }
 function execute(toExecute) {
-    var parameters = toExecute.split('/');
+    var parameters = toExecute.value.split('/');
     var fileName = parameters[1];
     if (fileName != '') {
         var file = searchFile(fileName);
         if (file != null) {
             if (canExecute(userLoging, file)) {
-                addConsola('bash: ejecutando en el archivo...');
+                addConsola('bash: ejecutando el archivo...');
             }
             else {
                 addConsola('bash: no se puede ejecutar el fichero ' + file.Name + ': el usuario no tiene permiso de ejecución.');

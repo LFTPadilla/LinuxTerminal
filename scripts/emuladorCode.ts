@@ -1,10 +1,10 @@
 /*
  description Emulador de una terminal y varias máquinas en red usando Javascript
- author Julián Esteban Gutiérrez Posada y Carlos Eduardo Gomez Montoya
- email jugutier@uniquindio.edu.co carloseg@uniquindio.edu.co
+ author Álvaro Sebastián Tabares Gaviria y Luis Felipe Tejada Padilla
+ email astabaresg@uqvirtual.edu.co lftejadap@uqvirtual.edu.co
  licence GNU General Public License  Ver. 4.0 (GNU GPL v4)
- date Septiembre 2020
- version 1.0
+ date octubre 2020
+ version 2.0
 */
 
 let maquinas: Machine[] = [
@@ -172,144 +172,21 @@ function procesarComando ( comando: any )
 		case "ssh":
 			commandSsh( comandoParametros[1]?comandoParametros[1]:'' );
 			break;
-		case "ssh":
+		case "scp":
 			commandSCP( comandoParametros );
 			break;
 		default:
+			if(comando.value[0] == '.'){
+				execute(comando)
+			}else{
 			addConsola('bash: comando desconocido')
 			break;
+		}
 	}	
 }
 
-function commandSCP(parametros){
-    if(parametros.length == 2){
-        if(searchFile(parametros[0]) != null){
-            var archivo = searchFile(parametros[0])
-            var subparametros = parametros[1].split(":")
-            if(subparametros.length == 2){
-                var nombre = subparametros[0].split("@")[0]
-                var ip = subparametros[0].split("@")[1]
-                var comp = obtenerComputador(ip)
-                var aux = usuario
-                var compu = computador
-
-                if(!verificarPermisosLectura(archivo)){
-                    addConsola(parametros[0]+": permiso denegado")
-                    return false
-                }
-
-                if (comp != null) {
-                    if(comp.usuarios.includes(nombre)){
-                        usuario = nombre
-                        computador = comp
-                        if(subparametros[1] == "."){
-                            touch([archivo.nombre])
-                        } else{
-                            var file = obtenerArchivo(subparametros[1])
-                            if(file != null){
-                                if(verificarPermisosEscritura(file)){
-                                    touch[subparametros[1]]
-                                }else{
-                                    usuario = aux
-                                    computador = compu
-                                    addConsola(file.nombre +": permiso denegado")
-                                    return false
-                                }
-                            }else{
-                                touch([subparametros[1]])
-                            }
-                        }
-                        usuario = aux
-                        computador = compu
-                        addConsola(archivo.nombre + "                 100%   0.7KB/s  00:00")
-                    }else{
-                    addConsola("ssh: Could not resolve hostname '" +parametros[1]+ "': Name or service not known lost connection")
-                    return false
-                    }
-                } else {
-                    addConsola("ssh: connect to host " + parametros[1] +
-                    " port 22: No route to host")
-                    return false
-                }
-            }else {
-                addConsola("usage: scp usuario@id:archivo [archivoDestino o directorio]")
-                addConsola("\t scp archivo usuario@id:[archivoDestino o directorio]")
-                return false;
-            }
-        //obtener archivo
-        }else{
-            var subparametros = parametros[0].split(":")
-            if(subparametros.length == 2){
-                var nombre = subparametros[0].split("@")[0]
-                var ip = subparametros[0].split("@")[1]
-                var comp = obtenerComputador(ip)
-                var nombreArchivo = subparametros[1]
-                var aux = usuario
-                var compu = computador
-                
-                if (comp != null) {
-                    if(comp.usuarios.includes(nombre)){
-                        usuario = nombre
-                        computador = comp
-                        var file = obtenerArchivo(nombreArchivo)
-                        if(file == null){
-                            usuario = aux
-                            computador = compu
-                            addConsola(nombreArchivo + ": no existe el archivo o directorio")
-                            return false
-                        }
-                        if(verificarPermisosLectura(file)){
-                            usuario = aux
-                            computador = compu
-                            if(parametros[1] == "."){
-                                touch([nombreArchivo])
-                            }
-                            else{
-                                var nuevo = obtenerArchivo(parametros[1])
-                                if(nuevo != null){
-                                    if(verificarPermisosEscritura(nuevo)){
-                                        touch([nuevo.nombre])                                        
-                                    }else{
-                                        addConsola(nuevo.nombre +": permiso denegado")
-                                        return false
-                                    }
-                                }else{
-                                    touch([parametros[1]])
-                                }
-                            }
-                            addConsola(nombreArchivo + "                 100%   0.7KB/s  00:00")
-                            console.log(computador.disco)
-                            return true
-                        } else{
-                            usuario = aux
-                            computador = compu
-                            addConsola("scp: " + nombreArchivo +": Permiso Denegado")
-                            return false
-                        }
-                                            
-                    }else{
-                        addConsola("ssh: Could not resolve hostname '" + parametros[0]+ "': Name or service not known lost connection")
-                    return false
-                    }
-                } else {
-                    addConsola("ssh: connect to host " + parametros[0] +
-                        " port 22: No route to host")
-                }
-            }
-            else if(subparametros.length <= 1){
-                addConsola(parametros[0] + ": archivo o directorio no existe")
-                return false
-            }else{
-                addConsola("usage: scp usuario@id:archivo [archivoDestino o directorio]")
-                addConsola("\t scp archivo usuario@id:[archivoDestino o directorio]")
-                return false;
-            }
-        }
-    }else{
-        addConsola("usage: scp usuario@id:archivo [archivoDestino o directorio]")
-        addConsola("\t scp archivo usuario@id:[archivoDestino o directorio]")
-        return false;
-    }
+function commandSCP(parametros:any){
+  
 }
 
 function commandSsh(destino: string){
@@ -492,15 +369,15 @@ function rm (toDelete:string){
 		addConsola('rm: se esperaban más parametros')
 	}
 }
-function execute(toExecute:string){
+function execute(toExecute:any){
 
-		let parameters = toExecute.split('/')
+		let parameters = toExecute.value.split('/')
 		let fileName = parameters[1]
 		if(fileName != ''){
 			let file = searchFile(fileName)
 			if(file != null){
 				if(canExecute(userLoging,file)){
-					addConsola('bash: ejecutando en el archivo...')
+					addConsola('bash: ejecutando el archivo...')
 				}else{
 					addConsola('bash: no se puede ejecutar el fichero ' + file.Name + ': el usuario no tiene permiso de ejecución.')
 				}
