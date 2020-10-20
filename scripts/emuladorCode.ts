@@ -18,7 +18,7 @@ let maquinas: Machine[] = [
 	{Name:'alv'},
 	{Name:'pipe'},
 	{Name:'sebas'}
-] ,myFiles: [{Name:'linuxMint.iso', Owner:'sebas', Group:'sebas',permissions:'664', Date:'14/11/2020'},{Name:'leeme.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'20/12/2019'},{Name:'fotoPajaro.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'14/10/2020'},{Name:'compri2.zip', Owner:'luis', Group:'luis',permissions:'664', Date:'31/05/2019'}]},
+] ,myFiles: [{Name:'linuxMint.iso', Owner:'sebas', Group:'sebas',permissions:'664', Date:'14/11/2020'},{Name:'leeme2.txt', Owner:'pipe', Group:'pipe',permissions:'664', Date:'20/12/2019'},{Name:'fotoPajaro.jpg', Owner:'pipe', Group:'pipe',permissions:'664', Date:'14/10/2020'},{Name:'compri2.zip', Owner:'luis', Group:'luis',permissions:'664', Date:'31/05/2019'}]},
 	{Name: 'Majaro', Disk:'/mach1', IPNumber:'176.36.84.94', myUsers: [ 
 	{Name:'Luis',Login:'luis',groups:[],Passwd:'123'},
 	{Name:'Tabares',Login:'taba',groups:[],Passwd: null},
@@ -88,7 +88,7 @@ function limpiarConsola(){
 function addConsola ( texto: string )
 {
 	document.getElementById( "textoImprimir" ).innerHTML +=  texto + '<br>' ;
-	var consola: any  = document.getElementById( "consola" );
+	let consola: any  = document.getElementById( "consola" );
 	consola['scrollTop'] = consola?.scrollHeight;
 	
 }
@@ -105,13 +105,12 @@ function procesarEntrada( e: any )
 
 function procesarComando ( comando: any )
 {
-	var comandoParametros = comando.value.split(" ");
+	let comandoParametros = comando.value.split(" ");
 
 	if(comandoParametros[0] == 'clear'){
 		limpiarConsola();
 		return;
 	}
-
 	if(!userLoging) {
 		if(comandoParametros[0] == 'Login:'){
 			
@@ -124,7 +123,7 @@ function procesarComando ( comando: any )
 						limpiarConsola();
 						userLoging=user;
 						document.getElementById( "userLogued" )?.innerHTML = user.Login;
-						
+						return;
 					}
 				}
 			});
@@ -143,7 +142,9 @@ function procesarComando ( comando: any )
 	switch (comandoParametros[0]) {
 		case "logout":
 			userLoging=null
+			machineSelected = 0;
 			document.getElementById( "userLogued" )?.innerHTML = ''
+			document.getElementById( "machine" ).innerHTML = maquinas[machineSelected].Name
 			break;
 		case "touch":
 			commandTouch(comandoParametros[1]?comandoParametros[1]:'' )
@@ -173,7 +174,12 @@ function procesarComando ( comando: any )
 			commandSsh( comandoParametros[1]?comandoParametros[1]:'' );
 			break;
 		case "scp":
-			commandSCP( comandoParametros );
+			try {
+				commandSCP( comandoParametros );	
+			} catch (error) {
+				addConsola(error)	
+			}
+			
 			break;
 		default:
 			if(comando.value[0] == '.'){
@@ -185,8 +191,90 @@ function procesarComando ( comando: any )
 	}	
 }
 
-function commandSCP(parametros:any){
-  
+
+function commandSCP(parametros: string[]){//[]
+	if(parametros[2].includes("@")){//[ scp, usuario@ip:archivo]
+		//scp archivo usuario@ip:.
+		let subparametros = parametros[2].split(":")//[usuario@ip , .]
+		
+		if(subparametros.length == 2){
+			let fileToSend = searchFile(parametros[1])
+			let existFile = fileToSend!=null && fileToSend != undefined;
+
+			if(!existFile){
+				throw "El archivo "+parametros[1]+" no existe.";
+			}
+			
+			let machineDataConnect = subparametros[0].split("@")//[usuario, ip]
+			fileToSend =fileToSend?fileToSend: new FileMachine("","","","","");
+			if(!canRead(userLoging,fileToSend)){
+				throw subparametros[0]+": permiso denegado de lectura";
+			}
+			let machineToConnect: number = searchMachine(machineDataConnect[1].split(':')[0]);
+			if(machineToConnect==-1){
+				throw "No existe la maquina con ip: "+machineDataConnect[1];
+			}
+
+			let userToConnect = searchUser(machineDataConnect[0],machineToConnect);
+			if(!userToConnect){
+				throw "No existe el usuario "+machineDataConnect[1]+" en la maquina destino ";
+			}
+			let fileNameDest = subparametros[1];
+			if(fileNameDest!= '.'){
+				commandTouch(fileNameDest,machineToConnect,userToConnect);
+			}else{
+				commandTouch(parametros[1],machineToConnect,userToConnect);
+			}
+			
+			
+
+		}else {
+			throw "Eror sintactico: scp archivo usuario@id:[archivoD o .]"
+		}       
+    }else{
+		//scp usuario@ip:archivo archivoD
+		let subparametros = parametros[1].split(":");//[usuario@ip, archivo]
+		let fileNameModified =  parametros[2];
+		let user = subparametros[0].split("@")[0];
+		let ip = subparametros[0].split("@")[1];
+		let fileNameToReceive = subparametros[1];
+
+		if(subparametros.length == 2){
+
+			
+			let machineToConnect: number = searchMachine(ip);
+			if(machineToConnect==-1){
+				throw "No existe la maquina con ip: "+ip;
+			}
+
+			let userToConnect = searchUser(user,machineToConnect);
+			if(!userToConnect){
+				throw "No existe el usuario "+user+" en la maquina destino ";
+			}
+			
+			let fileToReceive = searchFile(fileNameToReceive,machineToConnect)
+			let existFile = fileToReceive!=null && fileToReceive != undefined;
+			if(!existFile){
+				throw "El archivo "+fileNameToReceive+" no existe.";
+			}
+
+			fileToReceive = fileToReceive?fileToReceive: new FileMachine("","","","","");
+			if(!canRead(userToConnect,fileToReceive)){
+				throw subparametros[0]+": permiso denegado de lectura";
+			}
+
+			if(fileNameModified != '.'){
+				commandTouch(fileNameModified);
+			}else{
+				commandTouch(fileNameToReceive);
+			}
+
+		}else {
+			throw "Eror sintactico: scp usuario@id:archivo [archivoD o .]"
+		} 
+
+		
+    }
 }
 
 function commandSsh(destino: string){
@@ -204,7 +292,7 @@ function commandSsh(destino: string){
 				if(user.Login == dest[0]){
 					existUser = true;
 					machineSelected = iMach;
-					userLoging = user
+					userLoging = user;
 					document.getElementById( "machine" ).innerHTML = maquinas[machineSelected].Name
 					document.getElementById( "userLogued" )?.innerHTML = userLoging.Login;
 				}
@@ -235,17 +323,18 @@ function commandLs(parametro: boolean){
 
 }
 
-function commandTouch(nombre: string){
+function commandTouch(nombre: string, machine:number = machineSelected, userOwner: User|null = userLoging ){
+	console.log("Archivo"+nombre+"Va a guardar en maqui"+machine+" con user "+userOwner)
 	if(nombre==''){
 		addConsola('Por favor ingrese un nombre del archivo: touch nombre');
 		return;
 	}
 	let exist = false;
 	
-	maquinas[machineSelected].myFiles.forEach(element=>{
+	maquinas[machine].myFiles.forEach(element=>{
 		if(element.Name == nombre){
 			exist = true;
-			if (canWrite(userLoging, element)) {
+			if (canWrite(userOwner, element)) {
 				let aux = new Date
 				let day = ("0" + aux.getDate()).slice(-2)
 				let month = ("0" + (aux.getMonth() + 1)).slice(-2)
@@ -253,7 +342,7 @@ function commandTouch(nombre: string){
 
 				element.Date = day + '/' + month + '/' + year
 			}else{
-				addConsola('touch: no se puede efectuar ´touch´ sobre ´'+nombre+ '´: Permiso denegado');
+				addConsola('touch: no se puede efectuar ´touch´ sobre ´'+nombre+ '´: Permiso denegado de escritura');
 			}		
 		}
 	});
@@ -265,9 +354,9 @@ function commandTouch(nombre: string){
 		let year = aux.getFullYear()
 
 		let date = day + '/' + month + '/' + year
-		let log = userLoging!=undefined?userLoging.Login:null;
-		let newFile: FileMachine = new FileMachine(nombre, log,log, date +'', '664');
-		maquinas[machineSelected].myFiles.push(newFile);
+		let log = userOwner!=undefined?userOwner.Login:null;
+		let newFile: FileMachine = new FileMachine(nombre, log,log, date, '664');
+		maquinas[machine].myFiles.push(newFile);
 	}
 }
 
@@ -401,11 +490,11 @@ function execute(toExecute:any){
 }
 
 
-function searchUser(name:string){
+function searchUser(name:string, machine:number=machineSelected){
 
 	let user:User | undefined
 
-	maquinas[machineSelected].myUsers.forEach(element => {
+	maquinas[machine].myUsers.forEach(element => {
 		if(element.Login == name){
 			user = element
 		}
@@ -424,22 +513,33 @@ function searchGroup(name:string){
 	return group
 }
 
-function searchFile(name:string){
+function searchFile(name:string,machine:number=machineSelected){
 	let file: FileMachine | undefined
-	maquinas[machineSelected].myFiles.forEach(element => {
+	maquinas[machine].myFiles.forEach(element => {
 		if(element.Name == name){
 			file = element
 		}
 	});
 	return file
 }
+
+function searchMachine(ip:string){
+	let machine: number  = -1;
+	maquinas.forEach((element, index) => {
+		if(element.IPNumber == ip){
+			machine = index
+		}
+	});
+	return machine;
+}
+
 function convertFormatPermissions(permisos: string){
-	var aux = "-";
+	let aux = "-";
     if (permisos.length > 3) {
         return null
     }
     for (let i = 0; i < 3; i++) {
-        var valor = parseInt(permisos[i])
+        let valor = parseInt(permisos[i])
         if (valor > 7) {
             return null
         }
