@@ -111,6 +111,7 @@ function procesarComando ( comando: any )
 		limpiarConsola();
 		return;
 	}
+	let logueo = false;
 	if(!userLoging) {
 		if(comandoParametros[0] == 'Login:'){			
 			maquinas[machineSelected].myUsers.forEach(user => {
@@ -122,6 +123,7 @@ function procesarComando ( comando: any )
 						limpiarConsola();
 						userLoging=user;
 						document.getElementById( "userLogued" )?.innerHTML = user.Login;
+						logueo = true;
 						return;
 					}
 				}
@@ -135,6 +137,9 @@ function procesarComando ( comando: any )
 			return;
 		}
 	} 
+	if(logueo){
+		return;
+	}
 
 	addConsola ( userLoging?.Login+"@"+maquinas[machineSelected].Name+"$ " +  comando.value + "<br>" );
 
@@ -191,8 +196,7 @@ function procesarComando ( comando: any )
 					addConsola('bash: comando desconocido')
 				}
 			break;
-		}
-	}	
+	}	}
 }
 
 
