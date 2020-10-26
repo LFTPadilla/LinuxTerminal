@@ -61,12 +61,11 @@ function IniciarConsola() {
         addConsola('Iniciando consola en maquina ' + maquinas[machineSelected].Name);
         document.getElementById("machine").innerHTML = maquinas[machineSelected].Name;
         setTimeout(function () {
-            var _a;
             addConsola('Por favor ingrese su usuario.');
-            var u = new User('Sebastian', 'sebas', null, []);
+            /*let u = new User('Sebastian','sebas',null,[]);
             userLoging = u;
             limpiarConsola();
-            (_a = document.getElementById("userLogued")) === null || _a === void 0 ? void 0 : _a.innerHTML = u.Login;
+            document.getElementById( "userLogued" )?.innerHTML = u.Login;*/
         }, 0);
     }, 0);
 }

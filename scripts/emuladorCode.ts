@@ -65,10 +65,10 @@ function IniciarConsola(){
 		document.getElementById( "machine" ).innerHTML = maquinas[machineSelected].Name
 		setTimeout(()=>{
 			addConsola('Por favor ingrese su usuario.');
-			let u = new User('Sebastian','sebas',null,[]);
+			/*let u = new User('Sebastian','sebas',null,[]);
 			userLoging = u;
 			limpiarConsola();
-			document.getElementById( "userLogued" )?.innerHTML = u.Login;
+			document.getElementById( "userLogued" )?.innerHTML = u.Login;*/
 		},0);
 	}, 0);
 	
