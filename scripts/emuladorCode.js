@@ -97,6 +97,7 @@ function procesarComando(comando) {
         limpiarConsola();
         return;
     }
+    var logueo = false;
     if (!userLoging) {
         if (comandoParametros[0] == 'Login:') {
             maquinas[machineSelected].myUsers.forEach(function (user) {
@@ -110,6 +111,7 @@ function procesarComando(comando) {
                         limpiarConsola();
                         userLoging = user;
                         (_a = document.getElementById("userLogued")) === null || _a === void 0 ? void 0 : _a.innerHTML = user.Login;
+                        logueo = true;
                         return;
                     }
                 }
@@ -123,6 +125,9 @@ function procesarComando(comando) {
             addConsola("Primero debe Loguear un usuario (Login: usuario)");
             return;
         }
+    }
+    if (logueo) {
+        return;
     }
     addConsola((userLoging === null || userLoging === void 0 ? void 0 : userLoging.Login) + "@" + maquinas[machineSelected].Name + "$ " + comando.value + "<br>");
     switch (comandoParametros[0]) {
@@ -173,8 +178,8 @@ function procesarComando(comando) {
             }
             else {
                 addConsola('bash: comando desconocido');
-                break;
             }
+            break;
     }
 }
 function commandSCP(parametros) {
