@@ -16,8 +16,10 @@ var maquinas = [
             { Name: 'luis' },
             { Name: 'alv' },
             { Name: 'pipe' },
-            { Name: 'sebas' }
-        ], myFiles: [{ Name: 'linuxMint.iso', Owner: 'sebas', Group: 'sebas', permissions: '664', Date: '14/11/2020' }, { Name: 'leeme2.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '20/12/2019' }, { Name: 'fotoPajaro.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '14/10/2020' }, { Name: 'compri2.zip', Owner: 'luis', Group: 'luis', permissions: '664', Date: '31/05/2019' }] },
+            { Name: 'sebas' },
+            { Name: 'ventas' },
+            { Name: 'mercadeo' }
+        ], myFiles: [{ Name: 'linuxMint.iso', Owner: 'sebas', Group: 'ventas', permissions: '664', Date: '14/11/2020' }, { Name: 'leeme2.txt', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '20/12/2019' }, { Name: 'fotoPajaro.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '14/10/2020' }, { Name: 'compri2.zip', Owner: 'luis', Group: 'mercadeo', permissions: '664', Date: '31/05/2019' }] },
     { Name: 'Majaro', Disk: '/mach1', IPNumber: '176.36.84.94', myUsers: [
             { Name: 'Luis', Login: 'luis', groups: [], Passwd: '123' },
             { Name: 'Tabares', Login: 'taba', groups: [], Passwd: null },
@@ -27,8 +29,10 @@ var maquinas = [
             { Name: 'luis' },
             { Name: 'taba' },
             { Name: 'carlos' },
-            { Name: 'julian' }
-        ], myFiles: [{ Name: 'Manjaro.iso', Owner: 'luis', Group: 'luis', permissions: '664', Date: '01/09/2020' }, { Name: 'about.txt', Owner: 'taba', Group: 'taba', permissions: '664', Date: '02/12/2020' }, { Name: 'foto.jpg', Owner: 'taba', Group: 'taba', permissions: '664', Date: '3/02/2019' }, { Name: 'compri.zip', Owner: 'carlos', Group: 'carlos', permissions: '664', Date: '04/06/2018' }] },
+            { Name: 'julian' },
+            { Name: 'ventas' },
+            { Name: 'mercadeo' }
+        ], myFiles: [{ Name: 'Manjaro.iso', Owner: 'luis', Group: 'luis', permissions: '664', Date: '01/09/2020' }, { Name: 'about.txt', Owner: 'taba', Group: 'ventas', permissions: '664', Date: '02/12/2020' }, { Name: 'foto.jpg', Owner: 'taba', Group: 'mercadeo', permissions: '664', Date: '3/02/2019' }, { Name: 'compri.zip', Owner: 'carlos', Group: 'carlos', permissions: '664', Date: '04/06/2018' }] },
     { Name: 'Ubuntu', Disk: '/mach2', IPNumber: '160.83.18.19', myUsers: [
             { Name: 'Luisa', Login: 'lu', groups: [], Passwd: '123' },
             { Name: 'Gaviria', Login: 'gaviria', groups: [], Passwd: null },
@@ -38,8 +42,10 @@ var maquinas = [
             { Name: 'lu' },
             { Name: 'gaviria' },
             { Name: 'pipe' },
-            { Name: 'sebas' }
-        ], myFiles: [{ Name: 'Ubuntu.iso', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '05/09/2020' }, { Name: 'miTexto.txt', Owner: 'lu', Group: 'lu', permissions: '664', Date: '06/12/2020' }, { Name: 'amazon.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '07/02/2019' }, { Name: 'video.zip', Owner: 'lu', Group: 'lu', permissions: '664', Date: '08/06/2018' }] },
+            { Name: 'sebas' },
+            { Name: 'ventas' },
+            { Name: 'mercadeo' }
+        ], myFiles: [{ Name: 'Ubuntu.iso', Owner: 'pipe', Group: 'ventas', permissions: '664', Date: '05/09/2020' }, { Name: 'miTexto.txt', Owner: 'lu', Group: 'mercadeo', permissions: '664', Date: '06/12/2020' }, { Name: 'amazon.jpg', Owner: 'pipe', Group: 'pipe', permissions: '664', Date: '07/02/2019' }, { Name: 'video.zip', Owner: 'lu', Group: 'lu', permissions: '664', Date: '08/06/2018' }] },
     { Name: 'Fedora', Disk: '/mach3', IPNumber: '198.38.148.20', myUsers: [
             { Name: 'Maria', Login: 'maria', groups: [], Passwd: '123' },
             { Name: 'Andres', Login: 'andres', groups: [], Passwd: null },
@@ -49,8 +55,10 @@ var maquinas = [
             { Name: 'maria' },
             { Name: 'andres' },
             { Name: 'daniel' },
-            { Name: 'miguel' }
-        ], myFiles: [{ Name: 'Fedora.iso', Owner: 'andres', Group: 'andres', permissions: '664', Date: '07/09/2020' }, { Name: 'leeme.txt', Owner: 'daniel', Group: 'daniel', permissions: '664', Date: '08/12/2020' }, { Name: 'logo.jpg', Owner: 'miguel', Group: 'miguel', permissions: '664', Date: '24/02/2019' }, { Name: 'archivito.zip', Owner: 'maria', Group: 'maria', permissions: '664', Date: '28/06/2018' }] }
+            { Name: 'miguel' },
+            { Name: 'ventas' },
+            { Name: 'mercadeo' }
+        ], myFiles: [{ Name: 'Fedora.iso', Owner: 'andres', Group: 'mercadeo', permissions: '664', Date: '07/09/2020' }, { Name: 'leeme.txt', Owner: 'daniel', Group: 'ventas', permissions: '664', Date: '08/12/2020' }, { Name: 'logo.jpg', Owner: 'miguel', Group: 'miguel', permissions: '664', Date: '24/02/2019' }, { Name: 'archivito.zip', Owner: 'maria', Group: 'maria', permissions: '664', Date: '28/06/2018' }] }
 ];
 IniciarConsola();
 var machineSelected = 0;
@@ -177,7 +185,7 @@ function procesarComando(comando) {
                 execute(comando);
             }
             else {
-                if (comandoParametros[0] == 'Login:' && userLoging != null) {
+                if (comandoParametros[0] == 'Login:' && logueo) {
                     addConsola('login: login exitoso');
                     break;
                 }
