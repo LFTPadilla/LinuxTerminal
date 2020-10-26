@@ -172,7 +172,13 @@ function procesarComando(comando) {
                 execute(comando);
             }
             else {
-                addConsola('bash: comando desconocido');
+                if (comandoParametros[0] == 'Login:' && userLoging != null) {
+                    addConsola('login: login exitoso');
+                    break;
+                }
+                else {
+                    addConsola('bash: comando desconocido');
+                }
                 break;
             }
     }
