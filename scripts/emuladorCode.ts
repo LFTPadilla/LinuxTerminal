@@ -112,8 +112,7 @@ function procesarComando ( comando: any )
 		return;
 	}
 	if(!userLoging) {
-		if(comandoParametros[0] == 'Login:'){
-			
+		if(comandoParametros[0] == 'Login:'){			
 			maquinas[machineSelected].myUsers.forEach(user => {
 				if(user.Login == comandoParametros[1]){
 					if(user.Passwd){
